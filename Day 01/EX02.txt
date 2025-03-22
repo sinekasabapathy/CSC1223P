@@ -1,0 +1,38 @@
+MariaDB [UOV]> DESC Employee;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Physician_ID | char(10)    | YES  |     | NULL    |       |
+| Name         | varchar(20) | YES  |     | NULL    |       |
+| Position     | varchar(40) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.101 sec)
+MariaDB [UOV]> insert into Employee values(
+    -> '1','Jone Dorian','Staff Internist'),
+    -> ('2','Ellior Reid','Attending physiscian'),
+    -> ('3','Chirstopher Turk','Sugical Attending Physiscian'),
+    -> ('4','Percival cox','Senior Attending Physiscian'),
+    -> ('5','Keith Dudemeister','Md Resident'),
+    -> ('6','Molly Clock','Attending Physiscian');
+Query OK, 6 rows affected (0.008 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [UOV]> select * from Employee;
++--------------+-------------------+------------------------------+
+| Physician_ID | Name              | Position                     |
++--------------+-------------------+------------------------------+
+| 1            | Jone Dorian       | Staff Internist              |
+| 2            | Ellior Reid       | Attending physiscian         |
+| 3            | Chirstopher Turk  | Sugical Attending Physiscian |
+| 4            | Percival cox      | Senior Attending Physiscian  |
+| 5            | Keith Dudemeister | Md Resident                  |
+| 6            | Molly Clock       | Attending Physiscian         |
++--------------+-------------------+------------------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [UOV]>
+
+
+conclusion
+
+I have leart about how to create the table and how to add data to database

@@ -1,0 +1,124 @@
+Setting environment for using XAMPP for Windows.
+Acer@LAPTOP-JT4KM9Q6 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+5 rows in set (0.068 sec)
+
+MariaDB [(none)]> create database UOV;
+Query OK, 1 row affected (0.044 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| uov                |
++--------------------+
+6 rows in set (0.002 sec)
+
+MariaDB [(none)]> use UOV;
+Database changed
+MariaDB [UOV]> create table Students(Std_id char(15),Name varchar(30),Course(30),DOB date,City varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(30),DOB date,City varchar(20))' at line 1
+MariaDB [UOV]> DESC Students;
+ERROR 1146 (42S02): Table 'uov.students' doesn't exist
+MariaDB [UOV]> create table Students(Std_id char(15),Name varchar(30),Course varchar(30),DOB date,City varchar(20));
+Query OK, 0 rows affected (0.068 sec)
+
+MariaDB [UOV]> DESC Students;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Std_id | char(15)    | YES  |     | NULL    |       |
+| Name   | varchar(30) | YES  |     | NULL    |       |
+| Course | varchar(30) | YES  |     | NULL    |       |
+| DOB    | date        | YES  |     | NULL    |       |
+| City   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.102 sec)
+
+MariaDB [UOV]> insert into Students valuse(
+    -> '2022/ASP/52','Sineka','AMC','2003.05.24','Batticaloa');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'valuse(
+'2022/ASP/52','Sineka','AMC','2003.05.24','Batticaloa')' at line 1
+MariaDB [UOV]> insert into Students valuse(
+    -> '2022/ASP/52','Sineka','AMC','2003.05.24','Batticaloa'),
+    -> '2022/ASP/53','Abithkka','AMC','2002.11.20','Batticaloa');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'valuse(
+'2022/ASP/52','Sineka','AMC','2003.05.24','Batticaloa'),
+'2022/ASP/53...' at line 1
+MariaDB [UOV]> insert into Students values(
+    -> '2022/ASP/52','Sineka','AMC','2003.05.24','Batticaloa'),
+    -> '2022/ASP/53','Abithkka','AMC','2002.11.20','Batticaloa');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''2022/ASP/53','Abithkka','AMC','2002.11.20','Batticaloa')' at line 3
+MariaDB [UOV]> insert into Students values(
+    -> '2022/ASP/52','Sineka','AMC','2003.05.24','Batticaloa'),
+    -> ('2022/ASP/53','Abithkka','AMC','2002.11.20','Batticaloa');
+Query OK, 2 rows affected (0.178 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [UOV]> select * from students
+    -> ;
++-------------+----------+--------+------------+------------+
+| Std_id      | Name     | Course | DOB        | City       |
++-------------+----------+--------+------------+------------+
+| 2022/ASP/52 | Sineka   | AMC    | 2003-05-24 | Batticaloa |
+| 2022/ASP/53 | Abithkka | AMC    | 2002-11-20 | Batticaloa |
++-------------+----------+--------+------------+------------+
+2 rows in set (0.001 sec)
+
+MariaDB [UOV]> insert into Students values(
+    -> '2022ASP48','Jihaashika','AMC','2002.02.10','Batticaloa'),
+    -> ('2022ASP45',Disani','AMC','2003.12.15','Batticaloa');
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '','AMC','2003.12.15','Batticaloa');
+'' at line 3
+MariaDB [UOV]> insert into Students values(
+    -> '2022ASP48','Jihaashika','AMC','2002.02.10','Batticaloa'),
+    -> ('2022ASP45','Disani','AMC','2003.12.15','Batticaloa');
+Query OK, 2 rows affected (0.006 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [UOV]> select * from Students;
++-------------+------------+--------+------------+------------+
+| Std_id      | Name       | Course | DOB        | City       |
++-------------+------------+--------+------------+------------+
+| 2022/ASP/52 | Sineka     | AMC    | 2003-05-24 | Batticaloa |
+| 2022/ASP/53 | Abithkka   | AMC    | 2002-11-20 | Batticaloa |
+| 2022ASP48   | Jihaashika | AMC    | 2002-02-10 | Batticaloa |
+| 2022ASP45   | Disani     | AMC    | 2003-12-15 | Batticaloa |
++-------------+------------+--------+------------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [UOV]>
+
+
+
+Conclusion
+
+We Studies how to create database,
+how to use the database ,
+how to create a table,
+how to add data to the database and how to show the database.
