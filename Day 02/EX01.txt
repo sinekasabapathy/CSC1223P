@@ -203,3 +203,8 @@ MariaDB [uov]> select * from student;
 6 rows in set (0.001 sec)
 
 MariaDB [uov]>
+
+
+
+Conclusion
+I have leart about how to delect table ,how to use peimary key, how to delect the table values,how to delect data base and how to insert the values in other method
