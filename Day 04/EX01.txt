@@ -1,0 +1,398 @@
+Setting environment for using XAMPP for Windows.
+Acer@LAPTOP-JT4KM9Q6 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| uov                |
++--------------------+
+6 rows in set (0.002 sec)
+
+MariaDB [(none)]> use uov;
+Database changed
+MariaDB [uov]> create table employees (emp_id int primary key,name varchar(30) Not Null,age int,department varchar(30),salary double,city varchar(30));
+Query OK, 0 rows affected (0.077 sec)
+
+MariaDB [uov]> insert into employees values
+    -> (101,'Alice',30,'HR',60000.00,'New York'),
+    -> (102,'Bob',28,'IT',75000.00,'Los Angeles'),
+    -> (103,'Charlie',35,'Finance',80000.00,'Chicago'),
+    -> (104,'David',40,'IT',90000.00,'San Francisco'),
+    -> (105,'Emma',32,'Marketing',70000.00,'New York'),
+    -> (106,'Frank',27,'HR',50000.00,'Chicago');
+Query OK, 6 rows affected (0.024 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [uov]> select * from employees;
++--------+---------+------+------------+--------+---------------+
+| emp_id | name    | age  | department | salary | city          |
++--------+---------+------+------------+--------+---------------+
+|    101 | Alice   |   30 | HR         |  60000 | New York      |
+|    102 | Bob     |   28 | IT         |  75000 | Los Angeles   |
+|    103 | Charlie |   35 | Finance    |  80000 | Chicago       |
+|    104 | David   |   40 | IT         |  90000 | San Francisco |
+|    105 | Emma    |   32 | Marketing  |  70000 | New York      |
+|    106 | Frank   |   27 | HR         |  50000 | Chicago       |
++--------+---------+------+------------+--------+---------------+
+6 rows in set (0.001 sec)
+
+MariaDB [uov]> Alter table employees modify salary double(10,2);
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [uov]> select * from employees;
++--------+---------+------+------------+----------+---------------+
+| emp_id | name    | age  | department | salary   | city          |
++--------+---------+------+------------+----------+---------------+
+|    101 | Alice   |   30 | HR         | 60000.00 | New York      |
+|    102 | Bob     |   28 | IT         | 75000.00 | Los Angeles   |
+|    103 | Charlie |   35 | Finance    | 80000.00 | Chicago       |
+|    104 | David   |   40 | IT         | 90000.00 | San Francisco |
+|    105 | Emma    |   32 | Marketing  | 70000.00 | New York      |
+|    106 | Frank   |   27 | HR         | 50000.00 | Chicago       |
++--------+---------+------+------------+----------+---------------+
+6 rows in set (0.001 sec)
+
+MariaDB [uov]> select name,salary from  employees;
++---------+----------+
+| name    | salary   |
++---------+----------+
+| Alice   | 60000.00 |
+| Bob     | 75000.00 |
+| Charlie | 80000.00 |
+| David   | 90000.00 |
+| Emma    | 70000.00 |
+| Frank   | 50000.00 |
++---------+----------+
+6 rows in set (0.001 sec)
+
+MariaDB [uov]> select distinct department from  employees;
++------------+
+| department |
++------------+
+| HR         |
+| IT         |
+| Finance    |
+| Marketing  |
++------------+
+4 rows in set (0.001 sec)
+
+MariaDB [uov]> select * from  employees where department='IT';
++--------+-------+------+------------+----------+---------------+
+| emp_id | name  | age  | department | salary   | city          |
++--------+-------+------+------------+----------+---------------+
+|    102 | Bob   |   28 | IT         | 75000.00 | Los Angeles   |
+|    104 | David |   40 | IT         | 90000.00 | San Francisco |
++--------+-------+------+------------+----------+---------------+
+2 rows in set (0.001 sec)
+
+MariaDB [uov]> select * from employees where salary > 70000;
++--------+---------+------+------------+----------+---------------+
+| emp_id | name    | age  | department | salary   | city          |
++--------+---------+------+------------+----------+---------------+
+|    102 | Bob     |   28 | IT         | 75000.00 | Los Angeles   |
+|    103 | Charlie |   35 | Finance    | 80000.00 | Chicago       |
+|    104 | David   |   40 | IT         | 90000.00 | San Francisco |
++--------+---------+------+------------+----------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [uov]> select * from employees where age between 30 and 40;
++--------+---------+------+------------+----------+---------------+
+| emp_id | name    | age  | department | salary   | city          |
++--------+---------+------+------------+----------+---------------+
+|    101 | Alice   |   30 | HR         | 60000.00 | New York      |
+|    103 | Charlie |   35 | Finance    | 80000.00 | Chicago       |
+|    104 | David   |   40 | IT         | 90000.00 | San Francisco |
+|    105 | Emma    |   32 | Marketing  | 70000.00 | New York      |
++--------+---------+------+------------+----------+---------------+
+4 rows in set (0.001 sec)
+
+MariaDB [uov]> select * from employees where city='new york' or city='Chicago';
++--------+---------+------+------------+----------+----------+
+| emp_id | name    | age  | department | salary   | city     |
++--------+---------+------+------------+----------+----------+
+|    101 | Alice   |   30 | HR         | 60000.00 | New York |
+|    103 | Charlie |   35 | Finance    | 80000.00 | Chicago  |
+|    105 | Emma    |   32 | Marketing  | 70000.00 | New York |
+|    106 | Frank   |   27 | HR         | 50000.00 | Chicago  |
++--------+---------+------+------------+----------+----------+
+4 rows in set (0.001 sec)
+
+MariaDB [uov]> create table product (ProductID int primary key,Name varchar(30),Category varchar(30),Price int,StockQuantity int);
+Query OK, 0 rows affected (0.089 sec)
+
+MariaDB [uov]> DESC  product;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| ProductID     | int(11)     | NO   | PRI | NULL    |       |
+| Name          | varchar(30) | YES  |     | NULL    |       |
+| Category      | varchar(30) | YES  |     | NULL    |       |
+| Price         | int(11)     | YES  |     | NULL    |       |
+| StockQuantity | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.077 sec)
+
+MariaDB [uov]> select * from insert into product values
+    -> (1,'Ultra HD Television','Electronics',1200,30),
+    -> (2,'Running Shoes','Footwear',100,50),
+    -> (3,'Electric Kettle','Appliances',45,25),
+    -> (4,'Denim Jeans','Clothing',60,40),
+    -> (5,'Bluetooth Headphones','Electronics',150,15);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'insert into product values
+(1,'Ultra HD Television','Electronics',1200,30),
+(...' at line 1
+MariaDB [uov]> insert into product values
+    -> (1,'Ultra HD Television','Electronics',1200,30),
+    -> (2,'Running Shoes','Footwear',100,50),
+    -> (3,'Electric Kettle','Appliances',45,25),
+    -> (4,'Denim Jeans','Clothing',60,40),
+    -> (5,'Bluetooth Headphones','Electronics',150,15);
+Query OK, 5 rows affected (0.005 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [uov]> select * from product;
++-----------+----------------------+-------------+-------+---------------+
+| ProductID | Name                 | Category    | Price | StockQuantity |
++-----------+----------------------+-------------+-------+---------------+
+|         1 | Ultra HD Television  | Electronics |  1200 |            30 |
+|         2 | Running Shoes        | Footwear    |   100 |            50 |
+|         3 | Electric Kettle      | Appliances  |    45 |            25 |
+|         4 | Denim Jeans          | Clothing    |    60 |            40 |
+|         5 | Bluetooth Headphones | Electronics |   150 |            15 |
++-----------+----------------------+-------------+-------+---------------+
+5 rows in set (0.001 sec)
+
+MariaDB [uov]> select * from employees;
++--------+---------+------+------------+----------+---------------+
+| emp_id | name    | age  | department | salary   | city          |
++--------+---------+------+------------+----------+---------------+
+|    101 | Alice   |   30 | HR         | 60000.00 | New York      |
+|    102 | Bob     |   28 | IT         | 75000.00 | Los Angeles   |
+|    103 | Charlie |   35 | Finance    | 80000.00 | Chicago       |
+|    104 | David   |   40 | IT         | 90000.00 | San Francisco |
+|    105 | Emma    |   32 | Marketing  | 70000.00 | New York      |
+|    106 | Frank   |   27 | HR         | 50000.00 | Chicago       |
++--------+---------+------+------------+----------+---------------+
+6 rows in set (0.001 sec)
+
+MariaDB [uov]> create table Customer(CustomerID int primary key,FullName Varchar(30) Not Null,RegistrationDate date,phoneNumber varchar(30));
+Query OK, 0 rows affected (0.060 sec)
+
+MariaDB [uov]> desc Customer;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| CustomerID       | int(11)     | NO   | PRI | NULL    |       |
+| FullName         | varchar(30) | NO   |     | NULL    |       |
+| RegistrationDate | date        | YES  |     | NULL    |       |
+| phoneNumber      | varchar(30) | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.086 sec)
+
+MariaDB [uov]> insert into Customer values
+    -> (1,'Alice Johnson','2021-03-15','+1234567890'),
+    -> (2,'Bob Smith','2020-08-24','+0987654321'),
+    -> (3,'Carol Brown','2022-01-10','+1122334455'),
+    -> (4,'Dave Wilson','2021-07-02','+2233445566'),
+    -> (5,'Eve Davis','2020-11-29','+3344556677');
+Query OK, 5 rows affected (0.007 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [uov]> select * from  Customer;
++------------+---------------+------------------+-------------+
+| CustomerID | FullName      | RegistrationDate | phoneNumber |
++------------+---------------+------------------+-------------+
+|          1 | Alice Johnson | 2021-03-15       | +1234567890 |
+|          2 | Bob Smith     | 2020-08-24       | +0987654321 |
+|          3 | Carol Brown   | 2022-01-10       | +1122334455 |
+|          4 | Dave Wilson   | 2021-07-02       | +2233445566 |
+|          5 | Eve Davis     | 2020-11-29       | +3344556677 |
++------------+---------------+------------------+-------------+
+5 rows in set (0.001 sec)
+
+MariaDB [uov]> create table Sales(SaleID int primary key,ProductID int ,CustomerID int,SaleDate date,QuantitySold int);
+Query OK, 0 rows affected (0.058 sec)
+
+MariaDB [uov]> DESC customer;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| CustomerID       | int(11)     | NO   | PRI | NULL    |       |
+| FullName         | varchar(30) | NO   |     | NULL    |       |
+| RegistrationDate | date        | YES  |     | NULL    |       |
+| phoneNumber      | varchar(30) | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.074 sec)
+
+MariaDB [uov]> insert into Sales values
+    -> (1,1,1,'2023-06-15',1),
+    -> (2,2,2,'2023-06-18',2),
+    -> (3,3,3,'2023-06-20',3),
+    -> (4,4,4,'2023-06-25',3),
+    -> (5,5,5,'2023-06-30',2);
+Query OK, 5 rows affected (0.008 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [uov]> select * from  Sales;
++--------+-----------+------------+------------+--------------+
+| SaleID | ProductID | CustomerID | SaleDate   | QuantitySold |
++--------+-----------+------------+------------+--------------+
+|      1 |         1 |          1 | 2023-06-15 |            1 |
+|      2 |         2 |          2 | 2023-06-18 |            2 |
+|      3 |         3 |          3 | 2023-06-20 |            3 |
+|      4 |         4 |          4 | 2023-06-25 |            3 |
+|      5 |         5 |          5 | 2023-06-30 |            2 |
++--------+-----------+------------+------------+--------------+
+5 rows in set (0.001 sec)
+
+MariaDB [uov]> select * from  product;
++-----------+----------------------+-------------+-------+---------------+
+| ProductID | Name                 | Category    | Price | StockQuantity |
++-----------+----------------------+-------------+-------+---------------+
+|         1 | Ultra HD Television  | Electronics |  1200 |            30 |
+|         2 | Running Shoes        | Footwear    |   100 |            50 |
+|         3 | Electric Kettle      | Appliances  |    45 |            25 |
+|         4 | Denim Jeans          | Clothing    |    60 |            40 |
+|         5 | Bluetooth Headphones | Electronics |   150 |            15 |
++-----------+----------------------+-------------+-------+---------------+
+5 rows in set (0.001 sec)
+
+MariaDB [uov]> select CustomerID,RegistrationDate from  Customer ;
++------------+------------------+
+| CustomerID | RegistrationDate |
++------------+------------------+
+|          1 | 2021-03-15       |
+|          2 | 2020-08-24       |
+|          3 | 2022-01-10       |
+|          4 | 2021-07-02       |
+|          5 | 2020-11-29       |
++------------+------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [uov]> select name from  product;
++----------------------+
+| name                 |
++----------------------+
+| Ultra HD Television  |
+| Running Shoes        |
+| Electric Kettle      |
+| Denim Jeans          |
+| Bluetooth Headphones |
++----------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [uov]> select SaleID,SaleDate from  Sales
+    -> where  Price>100;
+ERROR 1054 (42S22): Unknown column 'Price' in 'where clause'
+MariaDB [uov]> select name from  product
+    -> where  Price>100;
++----------------------+
+| name                 |
++----------------------+
+| Ultra HD Television  |
+| Bluetooth Headphones |
++----------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [uov]> select CustomerID from  Customer
+    -> Where YEAR(RegistrationDate)<'2021';
++------------+
+| CustomerID |
++------------+
+|          2 |
+|          5 |
++------------+
+2 rows in set (0.001 sec)
+
+MariaDB [uov]> select SaleID,SaleDate from  Sales
+    -> where  QuantitySold=2;
++--------+------------+
+| SaleID | SaleDate   |
++--------+------------+
+|      2 | 2023-06-18 |
+|      5 | 2023-06-30 |
++--------+------------+
+2 rows in set (0.001 sec)
+
+MariaDB [uov]> select distinct category from products;
+ERROR 1146 (42S02): Table 'uov.products' doesn't exist
+MariaDB [uov]> select distinct category from product;
++-------------+
+| category    |
++-------------+
+| Electronics |
+| Footwear    |
+| Appliances  |
+| Clothing    |
++-------------+
+4 rows in set (0.001 sec)
+
+MariaDB [uov]> update product set price
+    -> where price=45;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where price=45' at line 2
+MariaDB [uov]> update product set price=145
+    -> where price=45;
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [uov]> select * from product;
++-----------+----------------------+-------------+-------+---------------+
+| ProductID | Name                 | Category    | Price | StockQuantity |
++-----------+----------------------+-------------+-------+---------------+
+|         1 | Ultra HD Television  | Electronics |  1200 |            30 |
+|         2 | Running Shoes        | Footwear    |   100 |            50 |
+|         3 | Electric Kettle      | Appliances  |   145 |            25 |
+|         4 | Denim Jeans          | Clothing    |    60 |            40 |
+|         5 | Bluetooth Headphones | Electronics |   150 |            15 |
++-----------+----------------------+-------------+-------+---------------+
+5 rows in set (0.001 sec)
+
+MariaDB [uov]> delete from customer
+    -> where customerID=3;
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [uov]> select * from customer;
++------------+---------------+------------------+-------------+
+| CustomerID | FullName      | RegistrationDate | phoneNumber |
++------------+---------------+------------------+-------------+
+|          1 | Alice Johnson | 2021-03-15       | +1234567890 |
+|          2 | Bob Smith     | 2020-08-24       | +0987654321 |
+|          4 | Dave Wilson   | 2021-07-02       | +2233445566 |
+|          5 | Eve Davis     | 2020-11-29       | +3344556677 |
++------------+---------------+------------------+-------------+
+4 rows in set (0.001 sec)
+
+MariaDB [uov]> select customerID,RegistrationDate from customer;
++------------+------------------+
+| customerID | RegistrationDate |
++------------+------------------+
+|          1 | 2021-03-15       |
+|          2 | 2020-08-24       |
+|          4 | 2021-07-02       |
+|          5 | 2020-11-29       |
++------------+------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [uov]>
+
+
+
+conclusion:
+I have learnt about how to update table,
+how to delete particular colums.
